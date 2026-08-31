@@ -119,7 +119,7 @@ const levels: Record<
     label: "Beginner",
     kicker: "Guided support",
     description:
-      "Pinned formula cards, a method prompt beneath every lock, and all three progressive hints.",
+      "Pinned formula cards, a method prompt beneath every lock, and one selectable hint for every lock.",
     formulae: "Formula cards begin open",
     hints: 3,
     guided: true,
@@ -128,7 +128,7 @@ const levels: Record<
     label: "Intermediate",
     kicker: "Balanced support",
     description:
-      "Formula cards are available on request, with two progressive hints for each room.",
+      "Formula cards are available on request, with two selectable lock-specific hints for each room.",
     formulae: "Formula cards on request",
     hints: 2,
     guided: false,
@@ -137,7 +137,7 @@ const levels: Record<
     label: "Advanced",
     kicker: "Independent challenge",
     description:
-      "The same physics with no method prompts, formula cards on request, and one strategic hint.",
+      "The same physics with no method prompts, formula cards on request, and one selectable lock-specific hint.",
     formulae: "Minimal scaffolding",
     hints: 1,
     guided: false,
@@ -551,7 +551,7 @@ export default function Home() {
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [invalidTasks, setInvalidTasks] = useState<string[]>([]);
   const [solvedRooms, setSolvedRooms] = useState<number[]>([]);
-  const [hintCounts, setHintCounts] = useState<Record<number, number>>({});
+  const [revealedHintsByRoom, setRevealedHintsByRoom] = useState<Record<number, number[]>>({});
   const [formulaOpen, setFormulaOpen] = useState<Record<number, boolean>>({});
   const [attempts, setAttempts] = useState(0);
   const [elapsed, setElapsed] = useState(0);
@@ -568,8 +568,8 @@ export default function Home() {
     [missionRooms],
   );
   const hintsUsed = useMemo(
-    () => Object.values(hintCounts).reduce((sum, count) => sum + count, 0),
-    [hintCounts],
+    () => Object.values(revealedHintsByRoom).reduce((sum, hints) => sum + hints.length, 0),
+    [revealedHintsByRoom],
   );
 
   useEffect(() => {
@@ -593,7 +593,7 @@ export default function Home() {
     setAnswers({});
     setInvalidTasks([]);
     setSolvedRooms([]);
-    setHintCounts({});
+    setRevealedHintsByRoom({});
     setFormulaOpen(level === "beginner" ? { 0: true } : {});
     setAttempts(0);
     setElapsed(0);
@@ -651,11 +651,14 @@ export default function Home() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  function revealHint() {
-    const shown = hintCounts[roomIndex] ?? 0;
+  function revealHint(lockIndex: number) {
+    const revealed = revealedHintsByRoom[roomIndex] ?? [];
     const allowed = Math.min(support.hints, currentRoom.hints.length);
-    if (shown >= allowed) return;
-    setHintCounts((current) => ({ ...current, [roomIndex]: shown + 1 }));
+    if (revealed.includes(lockIndex) || revealed.length >= allowed) return;
+    setRevealedHintsByRoom((current) => ({
+      ...current,
+      [roomIndex]: [...(current[roomIndex] ?? []), lockIndex].sort((a, b) => a - b),
+    }));
   }
 
   function submitFinalCode(event: FormEvent<HTMLFormElement>) {
@@ -675,7 +678,7 @@ export default function Home() {
     setAnswers({});
     setInvalidTasks([]);
     setSolvedRooms([]);
-    setHintCounts({});
+    setRevealedHintsByRoom({});
     setFormulaOpen({});
     setAttempts(0);
     setElapsed(0);
@@ -915,8 +918,9 @@ export default function Home() {
     );
   }
 
-  const revealedHints = hintCounts[roomIndex] ?? 0;
+  const revealedHints = revealedHintsByRoom[roomIndex] ?? [];
   const allowedHints = Math.min(support.hints, currentRoom.hints.length);
+  const remainingHints = Math.max(allowedHints - revealedHints.length, 0);
   const isFormulaOpen = formulaOpen[roomIndex] ?? level === "beginner";
   const progress = (solvedRooms.length / missionRooms.length) * 100;
   const CurrentIcon = currentRoom.icon;
@@ -1058,14 +1062,36 @@ export default function Home() {
 
         <aside className="support-rail" aria-label="Mission support">
           <section className="support-panel">
-            <div className="support-panel__heading"><Lightbulb aria-hidden="true" /><div><span>Progressive hints</span><small>{revealedHints} of {allowedHints} available hints opened</small></div></div>
+            <div className="support-panel__heading"><Lightbulb aria-hidden="true" /><div><span>Lock-specific hints</span><small>{revealedHints.length} of {allowedHints} hint choices used</small></div></div>
             <div className="hint-stack">
-              {currentRoom.hints.slice(0, revealedHints).map((hint, index) => <div key={hint}><span>0{index + 1}</span><p>{hint}</p></div>)}
-              {revealedHints === 0 && <p className="hint-empty">Try the room first. Open a hint only when your team reaches a genuine sticking point.</p>}
+              {currentRoom.hints.map((hint, index) => {
+                const isRevealed = revealedHints.includes(index);
+                const canReveal = !isRevealed && remainingHints > 0;
+                return (
+                  <div key={`${currentRoom.id}-hint-${index}`} className={`hint-choice ${isRevealed ? "is-revealed" : ""}`}>
+                    <div className="hint-choice__label">
+                      <span>Lock {index + 1}</span>
+                      <small>{isRevealed ? "Hint opened" : "Choose if needed"}</small>
+                    </div>
+                    {isRevealed ? (
+                      <p>{hint}</p>
+                    ) : (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        onClick={() => revealHint(index)}
+                        disabled={!canReveal}
+                        className="hint-button"
+                        aria-label={`Reveal hint for lock ${index + 1}`}
+                      >
+                        <Lightbulb aria-hidden="true" /> {canReveal ? `Reveal Lock ${index + 1} hint` : "Hint allowance used"}
+                      </Button>
+                    )}
+                  </div>
+                );
+              })}
             </div>
-            <Button type="button" variant="outline" onClick={revealHint} disabled={revealedHints >= allowedHints} className="hint-button">
-              <Lightbulb aria-hidden="true" /> {revealedHints >= allowedHints ? "No more hints at this level" : `Reveal hint ${revealedHints + 1}`}
-            </Button>
+            <p className="hint-budget">{remainingHints > 0 ? `${remainingHints} hint ${remainingHints === 1 ? "choice" : "choices"} remaining in this room.` : "Hint allowance used for this room."}</p>
           </section>
 
           <section className="fragment-panel">

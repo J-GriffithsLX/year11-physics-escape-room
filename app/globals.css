@@ -1502,16 +1502,35 @@ label {
 
 .hint-stack > div {
   display: grid;
-  grid-template-columns: auto 1fr;
   gap: 0.55rem;
   padding: 0.7rem;
   border: 1px solid rgba(247, 189, 97, 0.16);
   background: rgba(247, 189, 97, 0.035);
 }
 
-.hint-stack > div > span {
+.hint-stack > .is-revealed {
+  border-color: rgba(247, 189, 97, 0.3);
+  background: rgba(247, 189, 97, 0.07);
+}
+
+.hint-choice__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.hint-choice__label > span {
   color: var(--amber);
   font-family: "Cascadia Mono", Consolas, monospace;
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hint-choice__label > small {
+  color: #657672;
   font-size: 0.58rem;
 }
 
@@ -1520,14 +1539,6 @@ label {
   color: #91a29e;
   font-size: 0.7rem;
   line-height: 1.48;
-}
-
-.hint-empty {
-  min-height: 70px;
-  display: grid;
-  align-content: center;
-  color: #657672 !important;
-  font-style: italic;
 }
 
 .hint-button {
@@ -1540,9 +1551,23 @@ label {
   font-size: 0.7rem;
 }
 
-.hint-button:hover {
+.hint-button:not(:disabled):hover {
   border-color: rgba(247, 189, 97, 0.45);
   background: rgba(247, 189, 97, 0.08);
+}
+
+.hint-button:disabled {
+  border-color: rgba(124, 139, 134, 0.14);
+  background: rgba(124, 139, 134, 0.025);
+  color: #5f6e6a;
+}
+
+.hint-budget {
+  margin: 0.1rem 0 0;
+  color: #657672;
+  font-size: 0.62rem;
+  line-height: 1.4;
+  text-align: center;
 }
 
 .fragment-panel > div {
