@@ -15,25 +15,25 @@
 }
 
 :root {
-  --background: #071012;
-  --foreground: #edf5ef;
-  --card: #0d181a;
-  --card-foreground: #edf5ef;
-  --popover: #0d181a;
-  --popover-foreground: #edf5ef;
-  --primary: #b9f262;
-  --primary-foreground: #091108;
-  --secondary: #152326;
-  --secondary-foreground: #edf5ef;
-  --muted: #152326;
-  --muted-foreground: #98a7a5;
-  --accent: #173033;
-  --accent-foreground: #edf5ef;
+  --background: #101817;
+  --foreground: #f1eee6;
+  --card: #182321;
+  --card-foreground: #f1eee6;
+  --popover: #182321;
+  --popover-foreground: #f1eee6;
+  --primary: #c4d69a;
+  --primary-foreground: #172015;
+  --secondary: #22302d;
+  --secondary-foreground: #f1eee6;
+  --muted: #22302d;
+  --muted-foreground: #aab6af;
+  --accent: #293a36;
+  --accent-foreground: #f1eee6;
   --destructive: #ff6b5f;
   --border: rgba(182, 211, 202, 0.17);
   --input: rgba(182, 211, 202, 0.22);
-  --ring: #b9f262;
-  --radius: 0.75rem;
+  --ring: #c4d69a;
+  --radius: 0.9rem;
 }
 
 @theme inline {
@@ -68,7 +68,7 @@
 }
 
 html {
-  background: #071012;
+  background: #101817;
   color-scheme: dark;
   scroll-behavior: smooth;
 }
@@ -76,8 +76,8 @@ html {
 body {
   margin: 0;
   min-width: 320px;
-  background: #071012;
-  color: #edf5ef;
+  background: #101817;
+  color: #f1eee6;
   font-family: "Aptos", "Segoe UI", Arial, sans-serif;
   text-rendering: optimizeLegibility;
 }
@@ -1868,6 +1868,463 @@ label {
 .completion-card .launch-button {
   max-width: 360px;
   margin-inline: auto;
+}
+
+/* A calmer, teacher-designed visual language */
+.escape-shell {
+  --line: rgba(226, 233, 223, 0.13);
+  --panel: rgba(24, 35, 33, 0.96);
+  --panel-strong: #1b2825;
+  --soft: #aab6af;
+  --lime: #c4d69a;
+  --cyan: #79b8b0;
+  --amber: #d7b777;
+  --violet: #aaa1c5;
+  background:
+    radial-gradient(circle at 8% 0%, rgba(121, 184, 176, 0.08), transparent 30rem),
+    linear-gradient(155deg, #15201e 0%, #0e1716 64%, #111a18 100%);
+}
+
+.ambient-grid {
+  opacity: 0.2;
+  background-size: 72px 72px;
+}
+
+.ambient-grid::before,
+.ambient-grid::after,
+.support-console::before,
+.support-console::after {
+  display: none;
+}
+
+.eyebrow {
+  color: #9caaa4;
+  font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+  font-size: 0.76rem;
+  font-weight: 650;
+  letter-spacing: 0.035em;
+  text-transform: none;
+}
+
+.brand-name {
+  color: #f2efe7;
+  font-size: 0.96rem;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+
+.mission-mark {
+  border-color: rgba(196, 214, 154, 0.32);
+  background: rgba(196, 214, 154, 0.08);
+  box-shadow: none;
+}
+
+.mission-mark__ring {
+  display: none;
+}
+
+.briefing-header,
+.mission-header {
+  padding-bottom: 1.25rem;
+}
+
+.mission-meta span,
+.support-badge,
+.mission-id-badge {
+  border-color: rgba(226, 233, 223, 0.12);
+  background: rgba(238, 241, 232, 0.04);
+  color: #b7c2bc;
+  font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+  font-size: 0.73rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.status-chip {
+  margin-bottom: 1.1rem;
+  color: #d8c9a8;
+  font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+  font-size: 0.8rem;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.status-chip > span {
+  width: 0.45rem;
+  height: 0.45rem;
+  background: #d7b777;
+  box-shadow: none;
+  animation: none;
+}
+
+.briefing-copy h1,
+.completion-card h1,
+.final-card h1,
+.room-heading h1 {
+  color: #f4f0e7;
+  font-family: Georgia, "Times New Roman", serif;
+  font-weight: 400;
+  letter-spacing: -0.035em;
+}
+
+.briefing-copy h1,
+.completion-card h1 {
+  font-size: clamp(3rem, 6.2vw, 6.2rem);
+  line-height: 0.94;
+}
+
+.briefing-copy h1 em,
+.completion-card h1 em {
+  color: #c4d69a;
+  font-style: italic;
+}
+
+.briefing-copy .lead {
+  max-width: 680px;
+  color: #c7cec8;
+  font-size: clamp(1.05rem, 1.45vw, 1.22rem);
+  line-height: 1.65;
+}
+
+.mission-callout {
+  border-left-color: #c4d69a;
+  border-radius: 0 12px 12px 0;
+  background: rgba(196, 214, 154, 0.06);
+}
+
+.mission-callout p,
+.room-heading p {
+  color: #aebbb4;
+  font-size: 0.88rem;
+}
+
+.room-preview {
+  gap: 0.65rem;
+}
+
+.room-preview li {
+  min-height: 70px;
+  border-color: rgba(226, 233, 223, 0.1);
+  border-radius: 12px;
+  background: rgba(240, 242, 235, 0.035);
+}
+
+.room-preview strong {
+  font-size: 0.79rem;
+}
+
+.room-preview small {
+  color: #8f9e97;
+  font-size: 0.66rem;
+}
+
+.support-console {
+  border-color: rgba(226, 233, 223, 0.13);
+  border-radius: 18px;
+  background: rgba(25, 37, 34, 0.95);
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.22);
+}
+
+.console-topline {
+  margin-bottom: 1.25rem;
+  color: #95a49d;
+  font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.support-console h2 {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.65rem, 3vw, 2.2rem);
+  font-weight: 400;
+  letter-spacing: -0.025em;
+}
+
+.support-console > p {
+  color: #acb8b2;
+  font-size: 0.9rem;
+}
+
+.level-card,
+.mission-mode-grid > label,
+.task-card,
+.choice-grid label,
+.hint-stack > div {
+  border-radius: 12px;
+  background: rgba(13, 23, 21, 0.55);
+}
+
+.level-card {
+  min-height: 96px;
+  border-color: rgba(226, 233, 223, 0.12);
+}
+
+.level-card:hover {
+  border-color: rgba(196, 214, 154, 0.38);
+}
+
+.level-card.is-selected {
+  border-color: rgba(196, 214, 154, 0.62);
+  background: rgba(196, 214, 154, 0.08);
+  box-shadow: none;
+}
+
+.level-card__copy small,
+.mission-generator__heading small,
+.selected-support span,
+.variant-selectors > label > span,
+.variant-selectors > p,
+.briefing-footer,
+.progress-summary,
+.method-guide strong,
+.room-success small,
+.hint-choice__label > span,
+.code-form > label,
+.completion-stats span,
+.systems-restored > span {
+  font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0.025em;
+  text-transform: none;
+}
+
+.level-card__copy small,
+.level-card__copy > span {
+  color: #98a7a0;
+  font-size: 0.72rem;
+}
+
+.level-card__copy strong {
+  font-size: 1rem;
+}
+
+.mission-mode-grid > label {
+  border-color: rgba(226, 233, 223, 0.12);
+  background: rgba(13, 23, 21, 0.46);
+}
+
+.mission-mode-grid > label.is-selected {
+  border-color: rgba(196, 214, 154, 0.52);
+  background: rgba(196, 214, 154, 0.07);
+}
+
+.mission-mode-grid strong {
+  font-size: 0.74rem;
+}
+
+.mission-mode-grid small,
+.random-summary,
+.fine-print {
+  color: #91a099 !important;
+  font-size: 0.7rem !important;
+}
+
+.random-summary {
+  border-left-color: rgba(196, 214, 154, 0.5);
+  border-radius: 0 8px 8px 0;
+  background: rgba(196, 214, 154, 0.04);
+}
+
+.variant-selectors [data-slot="select-trigger"],
+.answer-row [data-slot="input"] {
+  border-radius: 9px;
+  background: #111d1b;
+}
+
+.selected-support strong {
+  color: #d5ddd7;
+  font-size: 0.76rem;
+}
+
+.launch-button,
+.submit-locks,
+.room-success [data-slot="button"],
+.hint-button {
+  border-radius: 10px;
+}
+
+.launch-button,
+.submit-locks {
+  border-color: #c4d69a;
+  background: #c4d69a;
+  box-shadow: none;
+}
+
+.launch-button:hover,
+.submit-locks:hover {
+  background: #d0dfa9;
+}
+
+.briefing-footer {
+  color: #84938c;
+  font-size: 0.66rem;
+}
+
+.mission-progress,
+.room-console,
+.support-panel,
+.fragment-panel,
+.rules-panel,
+.final-card,
+.completion-card {
+  border-color: rgba(226, 233, 223, 0.13);
+  border-radius: 18px;
+  background: rgba(24, 35, 33, 0.95);
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.16);
+}
+
+.mission-progress {
+  background: rgba(240, 242, 235, 0.035);
+  box-shadow: none;
+}
+
+.progress-summary {
+  color: #a4b1aa;
+  font-size: 0.69rem;
+}
+
+.progress-bar {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #293633;
+}
+
+.progress-bar [data-slot="progress-indicator"] {
+  border-radius: 999px;
+  background: #c4d69a;
+  box-shadow: none;
+}
+
+.progress-nodes .is-active > span {
+  box-shadow: none;
+}
+
+.room-console {
+  border-top-color: rgba(226, 233, 223, 0.13);
+}
+
+.room-heading__icon {
+  border-radius: 14px;
+}
+
+.room-heading h1 {
+  margin-top: 0.4rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  line-height: 1.05;
+}
+
+.variant-tag {
+  border-radius: 999px;
+  font-family: "Aptos", "Segoe UI", Arial, sans-serif;
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.parameter-grid,
+.data-table-wrap,
+.formula-drawer,
+.submission-feedback,
+.room-success,
+.systems-restored {
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.parameter-grid > div,
+.formula-list code,
+.completion-stats > div {
+  background: #1a2825;
+}
+
+.data-table-wrap,
+.formula-drawer {
+  background: rgba(13, 23, 21, 0.5);
+}
+
+.task-card {
+  padding: 1.1rem;
+}
+
+.task-card legend {
+  color: #e5e9e3;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.task-card legend > span {
+  border-radius: 7px;
+}
+
+.choice-grid label {
+  color: #aeb9b3;
+  font-size: 0.78rem;
+}
+
+.method-guide {
+  border-radius: 0 10px 10px 0;
+}
+
+.submission-feedback,
+.room-success {
+  background: rgba(215, 183, 119, 0.06);
+}
+
+.recovered-shard,
+.fragment-panel > div > span,
+.shard-rack > span,
+.otp-slot {
+  border-radius: 10px !important;
+  box-shadow: none;
+}
+
+.hint-button {
+  font-size: 0.73rem;
+}
+
+.final-card,
+.completion-card {
+  border-color: rgba(196, 214, 154, 0.22);
+  background: #192522;
+}
+
+.final-icon {
+  box-shadow: none;
+}
+
+.final-card h1 {
+  font-size: clamp(2.4rem, 6vw, 4.6rem);
+  line-height: 1;
+}
+
+.final-card > p,
+.completion-card > p {
+  color: #aebbb4;
+  font-size: 0.95rem;
+}
+
+.shard-rack > span {
+  background: rgba(196, 214, 154, 0.06);
+}
+
+.shard-rack strong {
+  text-shadow: none;
+}
+
+.completion-card::before {
+  display: none;
+}
+
+.completion-stats,
+.systems-restored {
+  border-color: rgba(226, 233, 223, 0.12);
+  background: rgba(226, 233, 223, 0.12);
+}
+
+.systems-restored li {
+  border-radius: 8px;
+  background: rgba(196, 214, 154, 0.055);
 }
 
 @media (max-width: 1100px) {

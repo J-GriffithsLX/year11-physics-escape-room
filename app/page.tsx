@@ -696,8 +696,8 @@ export default function Home() {
           <div className="brand-lockup">
             <MissionMark compact />
             <div>
-              <span className="eyebrow">Year 11 Physics revision protocol</span>
-              <span className="brand-name">Aether Research Station</span>
+              <span className="eyebrow">Year 11 Physics revision</span>
+              <span className="brand-name">The Aether Lock</span>
             </div>
           </div>
           <div className="mission-meta" aria-label="Activity information">
@@ -710,16 +710,16 @@ export default function Home() {
 
         <section className="briefing-grid">
           <div className="briefing-copy">
-            <div className="status-chip"><span /> Containment failing</div>
+            <div className="status-chip"><span /> A 30–40 minute team challenge</div>
             <h1>The Aether <em>Lock</em></h1>
             <p className="lead">
-              Six physics systems stand between your team and the exit. Restore motion, forces, energy, waves, circuits and evidence before the station seals.
+              Work through six connected rooms covering motion, forces, energy, waves, circuits and scientific evidence. Solve each one to unlock the exit.
             </p>
             <div className="mission-callout">
               <LockKeyhole aria-hidden="true" />
               <div>
-                <strong>Your objective</strong>
-                <p>Solve three locks in every room. Each restored system releases one digit of the final escape code.</p>
+                <strong>How it works</strong>
+                <p>Each room has three short locks. Solve all three to collect one digit of the final escape code.</p>
               </div>
             </div>
             <ol className="room-preview" aria-label="Mission systems">
@@ -737,9 +737,9 @@ export default function Home() {
           </div>
 
           <aside className="support-console" aria-labelledby="support-title">
-            <div className="console-topline"><span>Support calibration</span><span>AR-11</span></div>
-            <h2 id="support-title">Choose your support level</h2>
-            <p>Every support level receives the same selected mission. Only the scaffolding changes.</p>
+            <div className="console-topline"><span>Choose what works for you</span><span>Same questions, different support</span></div>
+            <h2 id="support-title">Choose your level of support</h2>
+            <p>Everyone completes the same physics content. The hints and formula help change to match the support you choose.</p>
 
             <RadioGroup
               value={level}
@@ -766,8 +766,8 @@ export default function Home() {
             <section className="mission-generator" aria-labelledby="generator-title">
               <div className="mission-generator__heading">
                 <div>
-                  <span id="generator-title">Mission generator</span>
-                  <small>15,625 possible combinations</small>
+                  <span id="generator-title">Choose a question set</span>
+                  <small>Five variants for every topic</small>
                 </div>
                 <Shuffle aria-hidden="true" />
               </div>
@@ -781,12 +781,12 @@ export default function Home() {
                 <label className={generationMode === "random" ? "is-selected" : ""}>
                   <RadioGroupItem value="random" />
                   <Shuffle aria-hidden="true" />
-                  <span><strong>Random mission</strong><small>New selection each run</small></span>
+                  <span><strong>Surprise me</strong><small>A fresh mix each time</small></span>
                 </label>
                 <label className={generationMode === "teacher" ? "is-selected" : ""}>
                   <RadioGroupItem value="teacher" />
                   <Settings2 aria-hidden="true" />
-                  <span><strong>Teacher test</strong><small>Force exact variants</small></span>
+                  <span><strong>Choose variants</strong><small>Pick a set for testing</small></span>
                 </label>
               </RadioGroup>
 
@@ -815,25 +815,25 @@ export default function Home() {
                   <p>Testing mission <strong>{getMissionId(teacherVariants)}</strong></p>
                 </div>
               ) : (
-                <p className="random-summary">One scenario will be drawn independently from each of the six five-item banks when the run begins.</p>
+                <p className="random-summary">We’ll choose one of five scenarios for each topic when you begin.</p>
               )}
             </section>
 
             <div className="selected-support">
               <Sparkles aria-hidden="true" />
-              <div><span>Selected protocol</span><strong>{support.label} · {support.formulae}</strong></div>
+              <div><span>Your setup</span><strong>{support.label} · {support.formulae}</strong></div>
             </div>
 
             <Button type="button" size="lg" onClick={startMission} className="launch-button">
-              Enter the station <ArrowRight aria-hidden="true" />
+              Start the escape room <ArrowRight aria-hidden="true" />
             </Button>
-            <p className="fine-print">Work individually or in pairs. Keep rough working beside you; units are shown with each answer field.</p>
+            <p className="fine-print">Work individually or in pairs. Keep your rough working nearby; units are shown with each answer.</p>
           </aside>
         </section>
 
         <footer className="briefing-footer">
           <span>NSW Physics 11–12 Syllabus (2025) · Year 11 revision</span>
-          <span>Same physics. Different support.</span>
+          <span>Built for classroom problem solving</span>
         </footer>
       </main>
     );
@@ -845,10 +845,10 @@ export default function Home() {
         <div className="ambient-grid" aria-hidden="true" />
         <section className="completion-card" aria-labelledby="completion-title">
           <div className="completion-orbit" aria-hidden="true"><MissionMark /></div>
-          <span className="eyebrow">Containment restored · exit released</span>
+          <span className="eyebrow">All six rooms complete</span>
           <span className="mission-id-display">Mission {missionId}</span>
-          <h1 id="completion-title">Station <em>escaped.</em></h1>
-          <p>You rebuilt all six systems and recovered the Aether Lock code.</p>
+          <h1 id="completion-title">You <em>escaped.</em></h1>
+          <p>You solved all six physics rooms and recovered the final code.</p>
           <div className="completion-stats">
             <div><Timer aria-hidden="true" /><span>Time</span><strong>{formatTime(elapsed)}</strong></div>
             <div><ShieldCheck aria-hidden="true" /><span>Support</span><strong>{support.label}</strong></div>
@@ -877,7 +877,7 @@ export default function Home() {
       <main className="escape-shell final-shell">
         <div className="ambient-grid" aria-hidden="true" />
         <header className="mission-header">
-          <div className="brand-lockup"><MissionMark compact /><div><span className="eyebrow">Aether Lock</span><span className="brand-name">Final containment door</span></div></div>
+          <div className="brand-lockup"><MissionMark compact /><div><span className="eyebrow">The Aether Lock</span><span className="brand-name">Final code</span></div></div>
           <div className="mission-header__right">
             <span className="mission-id-badge">{missionId}</span>
             <div className="timer-readout"><Timer aria-hidden="true" /><span>Elapsed</span><strong>{formatTime(elapsed)}</strong></div>
@@ -885,10 +885,10 @@ export default function Home() {
         </header>
         <section className="final-card" aria-labelledby="final-title">
           <div className="final-icon"><LockKeyhole aria-hidden="true" /></div>
-          <span className="eyebrow">All six systems online</span>
+          <span className="eyebrow">Six rooms complete</span>
           <span className="mission-id-display">Mission {missionId}</span>
-          <h1 id="final-title">Assemble the escape code.</h1>
-          <p>Read the recovered digits in system order, from Room 01 to Room 06.</p>
+          <h1 id="final-title">Enter your escape code.</h1>
+          <p>Put the six digits in room order, from Room 01 to Room 06.</p>
           <div className="shard-rack" aria-label="Recovered code fragments">
             {missionRooms.map((room) => <span key={room.id}><small>{room.number}</small><strong>{room.shard}</strong></span>)}
           </div>
@@ -931,7 +931,7 @@ export default function Home() {
       <header className="mission-header">
         <div className="brand-lockup">
           <MissionMark compact />
-          <div><span className="eyebrow">Aether Lock</span><span className="brand-name">Physics containment run</span></div>
+          <div><span className="eyebrow">The Aether Lock</span><span className="brand-name">Year 11 Physics Escape Room</span></div>
         </div>
         <div className="mission-header__right">
           <span className="mission-id-badge">{missionId}</span>
