@@ -3,9 +3,7 @@
 import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import type { LucideIcon } from "lucide-react";
 import {
-  ArrowRight,
   Atom,
-  BookOpen,
   Check,
   ChevronDown,
   ChevronUp,
@@ -13,13 +11,6 @@ import {
   FlaskConical,
   Gauge,
   Lightbulb,
-  LockKeyhole,
-  RotateCcw,
-  ShieldCheck,
-  Settings2,
-  Shuffle,
-  Sparkles,
-  Timer,
   Waves,
   Zap,
 } from "lucide-react";
@@ -531,15 +522,6 @@ function isTaskCorrect(task: Task, value: string | undefined) {
   return Number.isFinite(entered) && Math.abs(entered - task.answer) <= task.tolerance;
 }
 
-function MissionMark({ compact = false }: { compact?: boolean }) {
-  return (
-    <div className={`mission-mark ${compact ? "mission-mark--compact" : ""}`} aria-label="Aether Lock mission mark">
-      <span className="mission-mark__ring" />
-      <Atom aria-hidden="true" />
-    </div>
-  );
-}
-
 export default function Home() {
   const [level, setLevel] = useState<Level>("intermediate");
   const [generationMode, setGenerationMode] = useState<GenerationMode>("random");
@@ -694,45 +676,39 @@ export default function Home() {
         <div className="ambient-grid" aria-hidden="true" />
         <header className="briefing-header">
           <div className="brand-lockup">
-            <MissionMark compact />
             <div>
               <span className="eyebrow">Year 11 Physics revision</span>
               <span className="brand-name">The Aether Lock</span>
             </div>
           </div>
           <div className="mission-meta" aria-label="Activity information">
-            <span><Timer aria-hidden="true" /> 30–40 min</span>
-            <span><ShieldCheck aria-hidden="true" /> 6 systems</span>
-            <span><Shuffle aria-hidden="true" /> 15,625 missions</span>
-            <span><BookOpen aria-hidden="true" /> calculator ready</span>
+            <span>30–40 min</span>
+            <span>6 systems</span>
+            <span>15,625 missions</span>
+            <span>Calculator ready</span>
           </div>
         </header>
 
         <section className="briefing-grid">
           <div className="briefing-copy">
-            <div className="status-chip"><span /> A 30–40 minute team challenge</div>
+            <div className="status-chip">A 30–40 minute team challenge</div>
             <h1>The Aether <em>Lock</em></h1>
             <p className="lead">
               Work through six connected rooms covering motion, forces, energy, waves, circuits and scientific evidence. Solve each one to unlock the exit.
             </p>
             <div className="mission-callout">
-              <LockKeyhole aria-hidden="true" />
               <div>
                 <strong>How it works</strong>
                 <p>Each room has three short locks. Solve all three to collect one digit of the final escape code.</p>
               </div>
             </div>
             <ol className="room-preview" aria-label="Mission systems">
-              {roomBanks.map((room) => {
-                const Icon = room.icon;
-                return (
+              {roomBanks.map((room) => (
                   <li key={room.id}>
                     <span>{room.number}</span>
-                    <Icon aria-hidden="true" />
                     <div><strong>{room.shortTitle}</strong><small>{room.focus.split(" · ")[0]}</small></div>
                   </li>
-                );
-              })}
+              ))}
             </ol>
           </div>
 
@@ -769,7 +745,6 @@ export default function Home() {
                   <span id="generator-title">Choose a question set</span>
                   <small>Five variants for every topic</small>
                 </div>
-                <Shuffle aria-hidden="true" />
               </div>
 
               <RadioGroup
@@ -780,12 +755,10 @@ export default function Home() {
               >
                 <label className={generationMode === "random" ? "is-selected" : ""}>
                   <RadioGroupItem value="random" />
-                  <Shuffle aria-hidden="true" />
                   <span><strong>Surprise me</strong><small>A fresh mix each time</small></span>
                 </label>
                 <label className={generationMode === "teacher" ? "is-selected" : ""}>
                   <RadioGroupItem value="teacher" />
-                  <Settings2 aria-hidden="true" />
                   <span><strong>Choose variants</strong><small>Pick a set for testing</small></span>
                 </label>
               </RadioGroup>
@@ -794,7 +767,7 @@ export default function Home() {
                 <div className="variant-selectors">
                   {roomBanks.map((room, index) => (
                     <label key={room.id}>
-                      <span>{room.code} · {room.shortTitle}</span>
+                      <span>{room.code}: {room.shortTitle}</span>
                       <Select
                         value={String(teacherVariants[index])}
                         onValueChange={(value) => updateTeacherVariant(index, value)}
@@ -805,7 +778,7 @@ export default function Home() {
                         <SelectContent>
                           {room.variants.map((variant, variantIndex) => (
                             <SelectItem key={variant.variant} value={String(variantIndex)}>
-                              V{variant.variant} · {variant.variantName}
+                              V{variant.variant}: {variant.variantName}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -820,19 +793,18 @@ export default function Home() {
             </section>
 
             <div className="selected-support">
-              <Sparkles aria-hidden="true" />
-              <div><span>Your setup</span><strong>{support.label} · {support.formulae}</strong></div>
+              <div><span>Your setup</span><strong>{support.label}. {support.formulae}</strong></div>
             </div>
 
             <Button type="button" size="lg" onClick={startMission} className="launch-button">
-              Start the escape room <ArrowRight aria-hidden="true" />
+              Start the escape room
             </Button>
             <p className="fine-print">Work individually or in pairs. Keep your rough working nearby; units are shown with each answer.</p>
           </aside>
         </section>
 
         <footer className="briefing-footer">
-          <span>NSW Physics 11–12 Syllabus (2025) · Year 11 revision</span>
+          <span>NSW Physics 11–12 Syllabus (2025), Year 11 revision</span>
           <span>Built for classroom problem solving</span>
         </footer>
       </main>
@@ -844,28 +816,26 @@ export default function Home() {
       <main className="escape-shell completion-shell">
         <div className="ambient-grid" aria-hidden="true" />
         <section className="completion-card" aria-labelledby="completion-title">
-          <div className="completion-orbit" aria-hidden="true"><MissionMark /></div>
           <span className="eyebrow">All six rooms complete</span>
           <span className="mission-id-display">Mission {missionId}</span>
           <h1 id="completion-title">You <em>escaped.</em></h1>
           <p>You solved all six physics rooms and recovered the final code.</p>
           <div className="completion-stats">
-            <div><Timer aria-hidden="true" /><span>Time</span><strong>{formatTime(elapsed)}</strong></div>
-            <div><ShieldCheck aria-hidden="true" /><span>Support</span><strong>{support.label}</strong></div>
-            <div><Lightbulb aria-hidden="true" /><span>Hints</span><strong>{hintsUsed}</strong></div>
-            <div><RotateCcw aria-hidden="true" /><span>Checks</span><strong>{attempts}</strong></div>
+            <div><span>Time</span><strong>{formatTime(elapsed)}</strong></div>
+            <div><span>Support</span><strong>{support.label}</strong></div>
+            <div><span>Hints</span><strong>{hintsUsed}</strong></div>
+            <div><span>Checks</span><strong>{attempts}</strong></div>
           </div>
           <div className="systems-restored">
             <span>Systems restored</span>
             <ul>
               {missionRooms.map((room) => {
-                const Icon = room.icon;
-                return <li key={room.id}><Icon aria-hidden="true" />{room.shortTitle}<Check aria-hidden="true" /></li>;
+                return <li key={room.id}>{room.shortTitle}<Check aria-hidden="true" /></li>;
               })}
             </ul>
           </div>
           <Button type="button" size="lg" onClick={restart} className="launch-button">
-            <RotateCcw aria-hidden="true" /> Run the mission again
+            Run the mission again
           </Button>
         </section>
       </main>
@@ -877,14 +847,13 @@ export default function Home() {
       <main className="escape-shell final-shell">
         <div className="ambient-grid" aria-hidden="true" />
         <header className="mission-header">
-          <div className="brand-lockup"><MissionMark compact /><div><span className="eyebrow">The Aether Lock</span><span className="brand-name">Final code</span></div></div>
+          <div className="brand-lockup"><div><span className="eyebrow">The Aether Lock</span><span className="brand-name">Final code</span></div></div>
           <div className="mission-header__right">
             <span className="mission-id-badge">{missionId}</span>
-            <div className="timer-readout"><Timer aria-hidden="true" /><span>Elapsed</span><strong>{formatTime(elapsed)}</strong></div>
+            <div className="timer-readout"><span>Elapsed</span><strong>{formatTime(elapsed)}</strong></div>
           </div>
         </header>
         <section className="final-card" aria-labelledby="final-title">
-          <div className="final-icon"><LockKeyhole aria-hidden="true" /></div>
           <span className="eyebrow">Six rooms complete</span>
           <span className="mission-id-display">Mission {missionId}</span>
           <h1 id="final-title">Enter your escape code.</h1>
@@ -908,9 +877,9 @@ export default function Home() {
                 {[0, 1, 2, 3, 4, 5].map((index) => <InputOTPSlot key={index} index={index} className="otp-slot" />)}
               </InputOTPGroup>
             </InputOTP>
-            {codeError && <p className="error-message" role="alert">Code rejected. Check that the fragments are in Room 01 → Room 06 order.</p>}
+            {codeError && <p className="error-message" role="alert">Code rejected. Check that the fragments are in Room 01 to Room 06 order.</p>}
             <Button type="submit" size="lg" disabled={code.length !== 6} className="launch-button">
-              Release the exit <ArrowRight aria-hidden="true" />
+              Release the exit
             </Button>
           </form>
         </section>
@@ -923,20 +892,18 @@ export default function Home() {
   const remainingHints = Math.max(allowedHints - revealedHints.length, 0);
   const isFormulaOpen = formulaOpen[roomIndex] ?? level === "beginner";
   const progress = (solvedRooms.length / missionRooms.length) * 100;
-  const CurrentIcon = currentRoom.icon;
 
   return (
     <main className="escape-shell mission-shell">
       <div className="ambient-grid" aria-hidden="true" />
       <header className="mission-header">
         <div className="brand-lockup">
-          <MissionMark compact />
           <div><span className="eyebrow">The Aether Lock</span><span className="brand-name">Year 11 Physics Escape Room</span></div>
         </div>
         <div className="mission-header__right">
           <span className="mission-id-badge">{missionId}</span>
           <span className="support-badge">{support.label} support</span>
-          <div className="timer-readout"><Timer aria-hidden="true" /><span>Elapsed</span><strong>{formatTime(elapsed)}</strong></div>
+          <div className="timer-readout"><span>Elapsed</span><strong>{formatTime(elapsed)}</strong></div>
         </div>
       </header>
 
@@ -948,12 +915,11 @@ export default function Home() {
         <Progress value={progress} className="progress-bar" />
         <ol className="progress-nodes">
           {missionRooms.map((room, index) => {
-            const Icon = room.icon;
             const solved = solvedRooms.includes(index);
             const active = index === roomIndex;
             return (
               <li key={room.id} className={`${solved ? "is-solved" : ""} ${active ? "is-active" : ""}`} aria-current={active ? "step" : undefined}>
-                <span>{solved ? <Check aria-hidden="true" /> : <Icon aria-hidden="true" />}</span>
+                <span>{solved ? <Check aria-hidden="true" /> : room.number}</span>
                 <small>{room.shortTitle}</small>
               </li>
             );
@@ -964,9 +930,8 @@ export default function Home() {
       <div className="mission-layout">
         <section className={`room-console accent-${currentRoom.accent}`} aria-labelledby="room-title">
           <div className="room-heading">
-            <div className="room-heading__icon"><CurrentIcon aria-hidden="true" /></div>
             <div>
-              <span className="eyebrow">Room {currentRoom.number} · Variant {currentRoom.variant} · {currentRoom.focus}</span>
+              <span className="eyebrow">Room {currentRoom.number}, variant {currentRoom.variant}. {currentRoom.focus.replaceAll(" · ", ", ")}</span>
               <h1 id="room-title">{currentRoom.title}</h1>
               <span className="variant-tag">{currentRoom.variantName}</span>
               <p>{currentRoom.brief}</p>
@@ -995,7 +960,7 @@ export default function Home() {
 
           <div className="formula-drawer">
             <button type="button" onClick={() => setFormulaOpen((current) => ({ ...current, [roomIndex]: !isFormulaOpen }))} aria-expanded={isFormulaOpen}>
-              <span><BookOpen aria-hidden="true" /> Formula card {level === "beginner" && <small>opened for guided mode</small>}</span>
+              <span>Formula card {level === "beginner" && <small>opened for guided mode</small>}</span>
               {isFormulaOpen ? <ChevronUp aria-hidden="true" /> : <ChevronDown aria-hidden="true" />}
             </button>
             {isFormulaOpen && <div className="formula-list">{currentRoom.formulae.map((formula) => <code key={formula}>{formula}</code>)}</div>}
@@ -1034,7 +999,7 @@ export default function Home() {
                     </RadioGroup>
                   )}
                   <div id={`${task.id}-support`}>
-                    {support.guided && <p className="method-guide"><Sparkles aria-hidden="true" /><span><strong>Method prompt</strong>{task.guide}</span></p>}
+                    {support.guided && <p className="method-guide"><span><strong>Method prompt</strong>{task.guide}</span></p>}
                     {invalid && <p className="field-error" role="alert">This lock is not aligned yet. Recheck the value, sign or selected relationship.</p>}
                   </div>
                 </fieldset>
@@ -1049,12 +1014,12 @@ export default function Home() {
             )}
 
             {!roomSolvedNow ? (
-              <Button type="submit" size="lg" className="submit-locks">Test all three locks <ArrowRight aria-hidden="true" /></Button>
+              <Button type="submit" size="lg" className="submit-locks">Test all three locks</Button>
             ) : (
               <div className="room-success" role="status">
-                <div><ShieldCheck aria-hidden="true" /><span><small>System restored</small><strong>Code fragment recovered</strong></span></div>
+                <div><Check aria-hidden="true" /><span><small>System restored</small><strong>Code fragment recovered</strong></span></div>
                 <span className="recovered-shard">{currentRoom.shard}</span>
-                <Button type="button" size="lg" onClick={continueMission}>{roomIndex === missionRooms.length - 1 ? "Open final lock" : "Enter next room"}<ArrowRight aria-hidden="true" /></Button>
+                <Button type="button" size="lg" onClick={continueMission}>{roomIndex === missionRooms.length - 1 ? "Open final lock" : "Enter next room"}</Button>
               </div>
             )}
           </form>
@@ -1062,7 +1027,7 @@ export default function Home() {
 
         <aside className="support-rail" aria-label="Mission support">
           <section className="support-panel">
-            <div className="support-panel__heading"><Lightbulb aria-hidden="true" /><div><span>Lock-specific hints</span><small>{revealedHints.length} of {allowedHints} hint choices used</small></div></div>
+            <div className="support-panel__heading"><div><span>Lock-specific hints</span><small>{revealedHints.length} of {allowedHints} hint choices used</small></div></div>
             <div className="hint-stack">
               {currentRoom.hints.map((hint, index) => {
                 const isRevealed = revealedHints.includes(index);
@@ -1097,7 +1062,7 @@ export default function Home() {
           <section className="fragment-panel">
             <span>Recovered fragments</span>
             <div>
-              {missionRooms.map((room, index) => <span key={room.id} className={solvedRooms.includes(index) ? "is-recovered" : ""}>{solvedRooms.includes(index) ? room.shard : "·"}</span>)}
+              {missionRooms.map((room, index) => <span key={room.id} className={solvedRooms.includes(index) ? "is-recovered" : ""}>{solvedRooms.includes(index) ? room.shard : ""}</span>)}
             </div>
             <small>Keep these in room order. You will need all six.</small>
           </section>
